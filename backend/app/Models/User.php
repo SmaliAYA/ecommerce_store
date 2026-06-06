@@ -39,4 +39,25 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    // Dans User.php
+public function addresses()
+{
+    return $this->hasMany(Address::class);
+}
+
+public function defaultAddress()
+{
+    return $this->hasOne(Address::class)->where('is_default', true);
+}
+
+public function payments()
+{
+    return $this->hasMany(Payment::class);
+
+}
+
+public function orders()
+{
+    return $this->hasMany(Order::class);
+}
 }
