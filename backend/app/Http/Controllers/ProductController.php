@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Models\Product;
+   use App\Models\Product;
+use Cloudinary\Cloudinary;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+
 
 class ProductController extends Controller
 {
@@ -27,25 +29,56 @@ return response()->json([
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
 
-        'name'=>'required|string|max:255',
-        'slug'=>'required|string|max:255|unique:products,slug',
-        'description'=>'nullable|string',
-        'price'=>'required|numeric',
-        'stock'=>'required|integer',
-        'image'=>'nullable|string|max:255',
-        'category_id'=>'required|exists:categories,id',
-        'is_active'=>'boolean'
-]);
-$product = Product::create($validated);
-return response()->json([
-'data' => $product,
-'message' => 'Product created successfully',
-], 201);
+
+public function store(Request $request)
+{
+    $validated = $request->validate([
+        'name' => 'required|string|max:255',
+        'description' => 'nullable|string',
+        'price' => 'required|numeric',
+        'stock' => 'required|integer|min:0',
+        'category_id' => 'required|exists:categories,id',
+        'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+        'is_active' => 'boolean'
+    ]);
+
+    $imageUrl = null;
+
+    if ($request->hasFile('image')) {
+
+        $cloudinary = new Cloudinary([
+            'cloud' => [
+                'cloud_name' => env('CLOUDINARY_CLOUD_NAME'),
+                'api_key' => env('CLOUDINARY_API_KEY'),
+                'api_secret' => env('CLOUDINARY_API_SECRET'),
+            ],
+        ]);
+
+        $uploaded = $cloudinary->uploadApi()->upload(
+            $request->file('image')->getRealPath()
+        );
+
+        $imageUrl = $uploaded['secure_url'];
     }
+
+    $product = Product::create([
+        'name' => $validated['name'],
+        'slug' => Str::slug($validated['name']) . '-' . time(),
+        'description' => $validated['description'] ?? null,
+        'price' => $validated['price'],
+        'stock' => $validated['stock'],
+        'image' => $imageUrl,
+        'category_id' => $validated['category_id'],
+        'is_active' => $validated['is_active'] ?? true,
+    ]);
+
+    return response()->json([
+        'success' => true,
+        'message' => 'Product created successfully',
+        'data' => $product
+    ], 201);
+}
 
     /**
      * Display the specified resource.

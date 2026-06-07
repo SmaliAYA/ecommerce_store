@@ -47,4 +47,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('cart/clear', [CartController::class, 'clear']);
     Route::patch('cart/items/{cartItem}', [CartController::class, 'update']);
     Route::delete('cart/items/{cartItem}', [CartController::class, 'destroy']);
+
+  
+});
+  Route::get('/cloudinary-test', function () {
+    return response()->json([
+        'cloud_name' => env('CLOUDINARY_CLOUD_NAME'),
+        'api_key' => env('CLOUDINARY_API_KEY'),
+    ]);
 });
