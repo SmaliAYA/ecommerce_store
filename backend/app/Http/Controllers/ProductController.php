@@ -38,7 +38,7 @@ public function store(Request $request)
         'description' => 'nullable|string',
         'price' => 'required|numeric',
         'stock' => 'required|integer|min:0',
-        'category_id' => 'required|exists:categories,id',
+       'category_name' => 'required|string|max:255',
         'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         'is_active' => 'boolean'
     ]);
@@ -61,7 +61,9 @@ public function store(Request $request)
 
         $imageUrl = $uploaded['secure_url'];
     }
-
+$category = \App\Models\Category::firstOrCreate([
+    'name' => $validated['category_name']
+]);
     $product = Product::create([
         'name' => $validated['name'],
         'slug' => Str::slug($validated['name']) . '-' . time(),
@@ -69,7 +71,7 @@ public function store(Request $request)
         'price' => $validated['price'],
         'stock' => $validated['stock'],
         'image' => $imageUrl,
-        'category_id' => $validated['category_id'],
+        'category_id' => $category->id,
         'is_active' => $validated['is_active'] ?? true,
     ]);
 
@@ -108,10 +110,16 @@ $validated = $request->validate([
         'price'=>'sometimes|numeric',
         'stock'=>'sometimes|integer',
         'image'=>'sometimes|string|max:255',
-        'category_id'=>'sometimes|exists:categories,id',
+        'category_name'=>'sometimes|string|max:255',
         'is_active'=>'sometimes|boolean'
 ]);
+if ($request->has('category_name')) {
+    $category = \App\Models\Category::firstOrCreate([
+        'name' => $request->category_name
+    ]);
 
+    $validated['category_id'] = $category->id;
+}
         $product->update($validated);
 
         return response()->json([
