@@ -10,43 +10,37 @@ export default function Login() {
 
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError(null);
+const handleLogin = async (e) => {
+  e.preventDefault();
+  setLoading(true);
+  setError(null);
 
-    try {
-      const res = await api.post("/login", {
-        email,
-        password,
-      });
+  try {
+    const res = await api.post("/login", { email, password });
 
-      // token sécurisé
-      const token = res.data.token;
+    const token = res.data.token;
 
-      if (!token) {
-        setError("Token not found");
-        return;
-      }
-
-      // save token
-      localStorage.setItem("token", token);
-
-      // redirect admin dashboard
-      navigate("/admin/products");
-
-    } catch (error) {
-      console.log(error.response?.data);
-
-      setError(
-        error.response?.data?.message ||
-        "Invalid credentials. Please try again."
-      );
-
-    } finally {
-      setLoading(false);
+    if (!token) {
+      setError("Token not found");
+      return;
     }
-  };
+
+    // save token + user
+    localStorage.setItem("token", token);
+    localStorage.setItem("user", JSON.stringify(res.data.user)); // ← ligne manquante
+
+    // redirect to create product
+    navigate("/admin/products/create"); // ← change aussi ici
+
+  } catch (error) {
+    setError(
+      error.response?.data?.message ||
+      "Invalid credentials. Please try again."
+    );
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: "#F4F6F9" }}>

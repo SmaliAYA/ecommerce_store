@@ -12,7 +12,7 @@ class Category extends Model
         'description',
         'is_active',
     ];
-
+ 
     // Relation : une catégorie a plusieurs produits
     public function products()
     {

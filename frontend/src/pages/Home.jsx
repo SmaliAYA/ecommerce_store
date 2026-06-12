@@ -3,9 +3,9 @@ import {
   Megaphone, ArrowRight, Globe, Moon, Sun, Hexagon, ChevronRight,
   Package, Factory, Clock, Settings, Zap, Target, CheckCircle, Handshake,
   Shield, Wrench, Monitor, Search, Plus, Truck, FlaskConical,
-  FileText, Download, Rocket,  MessageCircle
+  FileText, Rocket,  MessageCircle
 } from 'lucide-react';
-import { FaInstagram , FaLinkedin } from 'react-icons/fa6';
+
 import { motion } from "framer-motion";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
@@ -14,12 +14,15 @@ import { Progress } from "../components/ui/progress";
 import ImageWithFallback from "../components/figma/ImageWithFallback";
 // En haut du fichier avec les autres imports
 import { getProducts } from '../services/api';
+import logooo from "../assets/logooo.png";
+
 
 // ─── Data ──────────────────────────────────────────────────────────────────
  
 const loomBrands = [
-  'PICANOL', 'ITEMA', 'DORNIER', 'SULZER', 'STÄUBLI', 'VAMATEX',
-  'PICANOL', 'ITEMA', 'DORNIER', 'SULZER', 'STÄUBLI', 'VAMATEX',
+  'PICANOL', 'ITEMA', 'DORNIER', 'SULZER', 'STÄUBLI', 'VAMATEX','EXCEL','SUPER_EXCEL','LEONARDO','ALPHA',
+  
+  'PICANOL', 'ITEMA', 'DORNIER', 'SULZER', 'STÄUBLI', 'VAMATEX','EXCEL','SUPER_EXCEL','LEONARDO','ALPHA'
 ];
  
 // ─── Home ──────────────────────────────────────────────────────────────────
@@ -132,30 +135,30 @@ function Home() {
   };
  
   const aboutFeatures = [
-    { icon: Zap, title: 'Rapid Supply', description: 'Fast turnaround times to minimize your production downtime' },
-    { icon: Target, title: 'Precision Matching', description: 'Exact specifications for perfect compatibility with your machinery' },
-    { icon: CheckCircle, title: 'Global Quality', description: 'International standards with local Moroccan service excellence' },
-    { icon: Handshake, title: 'Long-term Partnership', description: 'Building lasting relationships with textile manufacturers' },
+    { icon: Zap, title: 'Minimized Downtime', description: 'Fast turnaround times to minimize your production downtime' },
+    { icon: Target, title: 'Guaranteed Compatibility', description: 'Exact specifications for perfect compatibility with your machinery' },
+    { icon: CheckCircle, title: 'International Standards , Local Expertise', description: 'International standards with local Moroccan service excellence' },
+    { icon: Handshake, title: 'Building Industrial Resilience', description: 'Building lasting relationships with textile manufacturers' },
   ];
  
   const expertiseCards = [
     {
       icon: Package,
-      title: 'Spare Parts',
+      title: 'Precision Components Sourcing',
       items: ['Rapier grippers & components', 'Brush rings & plates', 'Electronic boards & sensors', 'Gears & mechanical parts'],
       progress: progressValues.parts,
       color: '#1B3A6B',
     },
     {
       icon: Wrench,
-      title: 'Technical Services',
+      title: 'Full Cycle Technical Support',
       items: ['On-site technical support', 'Machinery diagnostics', 'Installation assistance', 'Preventive maintenance'],
       progress: progressValues.services,
       color: '#F97316',
     },
     {
       icon: Monitor,
-      title: 'Digital Tools',
+      title: 'Advanced Procurement Solutions',
       items: ['Online parts catalogue', 'Quick RFQ system', 'Order tracking portal', 'Technical documentation'],
       progress: progressValues.digital,
       color: '#3B72B0',
@@ -163,15 +166,15 @@ function Home() {
   ];
  
   const services = [
-    { icon: Package, title: 'Parts Distribution', description: 'Comprehensive inventory of textile machinery spare parts from leading global manufacturers, ready for immediate dispatch to your facility.' },
-    { icon: Truck, title: 'Rapid Shipping', description: 'Express delivery across Morocco with average 24-hour turnaround. Emergency orders prioritized to minimize your production downtime.' },
-    { icon: FlaskConical, title: 'Technical Consulting', description: 'Expert guidance on part selection, compatibility verification, and maintenance planning to optimize your machinery performance.' },
+    { icon: Package, title: 'On Demande Parts Availibility', description: 'Comprehensive inventory of textile machinery spare parts from leading global manufacturers, ready for immediate dispatch to your facility.' },
+    { icon: Truck, title: 'Emergency Logistics Support', description: 'Express delivery across Morocco with average 24-hour turnaround. Emergency orders prioritized to minimize your production downtime.' },
+    { icon: FlaskConical, title: 'Operational Optimization Consulting', description: 'Expert guidance on part selection, compatibility verification, and maintenance planning to optimize your machinery performance.' },
   ];
  
   const milestones = [
-    { icon: Rocket, year: '2024', title: 'Founded — PARTIVA Launch', description: "Established in Casablanca to serve Morocco's growing textile industry with precision spare parts and rapid delivery." },
-    { icon: Handshake, year: '2025', title: 'Growth Phase — Strategic Partnerships', description: 'Expanded our supplier network globally and partnered with 50+ textile manufacturers across Morocco.' },
-    { icon: Target, year: '2027', title: '2027 Vision — National Coverage', description: 'Aiming for complete nationwide coverage with regional distribution centers and 1000+ parts in our catalogue.' },
+    { icon: Rocket, title: 'The Genesis of Partiva', description: "Established in Casablanca to serve Morocco's growing textile industry with precision spare parts and rapid delivery." },
+    { icon: Handshake,  title: 'Growth Phase — Strategic Partnerships', description: 'Expanded our supplier network globally and partnered with 50+ textile manufacturers across Morocco.' },
+    { icon: Target,  title: 'Redefining Industry Standards', description: 'Aiming for complete nationwide coverage with regional distribution centers and 1000+ parts in our catalogue.' },
   ];
  
   const resources = [
@@ -199,7 +202,11 @@ function Home() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Hexagon className="w-8 h-8 text-[#F97316] fill-[#F97316]" />
-              <span className="text-2xl font-black tracking-tight text-[#1B3A6B] dark:text-white">PARTIVA</span>
+              <img
+  src={logooo}
+  alt="PARTIVA"
+ className="h-36 w-30 object-contain max-w-[140px] dark:brightness-0 dark:invert"
+/>
             </div>
             <div className="hidden md:flex items-center gap-8">
               {['about', 'expertise', 'catalogue', 'services', 'journey'].map(id => (
@@ -234,7 +241,7 @@ function Home() {
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
                 <h1 className="text-5xl md:text-6xl font-black mb-6 text-[#1B3A6B] dark:text-white tracking-tight leading-tight">
-                  Precision Spare Parts for the Textile Industry
+                  Empowering Morrocco's Textile Industry with Precision & Speed
                 </h1>
                 <p className="text-lg text-[#1C1C1C] dark:text-gray-300 mb-8 leading-relaxed">
                   PARTIVA delivers high-quality textile machinery components to keep your production running smoothly.
@@ -250,9 +257,9 @@ function Home() {
                 </div>
                 <div className="mt-12 grid grid-cols-3 gap-6">
                   {[
-                    { icon: Package, value: `${partsCount}+`, label: 'Parts in Stock' },
-                    { icon: Factory, value: `${partnersCount}+`, label: 'Factory Partners' },
-                    { icon: Clock, value: '24h', label: 'Avg. Delivery' },
+                    { icon: Package, value: `${partsCount}+`, label: 'Inventory Ready to Ship' },
+                    { icon: Factory, value: `${partnersCount}+`, label: 'Trusted Global Partnerships' },
+                    { icon: Clock, value: '24h', label: 'Rapid Logistics Solutions' },
                   ].map((stat, i) => (
                     <motion.div key={i} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.3 + i * 0.1, duration: 0.5 }} className="bg-white dark:bg-[#1C1C1C] p-4 rounded-lg shadow-lg border border-[#F4F6F9] dark:border-gray-800">
                       <stat.icon className="w-6 h-6 text-[#F97316] mb-2" />
@@ -568,7 +575,6 @@ function Home() {
           <div className="container mx-auto px-4">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="text-center mb-12">
               <h2 className="text-4xl md:text-5xl font-black mb-4 text-[#1B3A6B] dark:text-white tracking-tight">Technical Resources</h2>
-              <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">Download technical documentation and reference materials</p>
             </motion.div>
             <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
               {resources.map((resource, index) => (
@@ -576,13 +582,6 @@ function Home() {
                   <FileText className="w-12 h-12 text-[#F97316] mb-6" />
                   <h3 className="text-xl font-black mb-3 text-[#1B3A6B] dark:text-white">{resource.title}</h3>
                   <p className="text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">{resource.description}</p>
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-gray-500 dark:text-gray-500">{resource.fileSize}</span>
-                    <Button variant="ghost" size="sm" className="text-[#1B3A6B] dark:text-white hover:text-[#F97316] dark:hover:text-[#F97316]">
-                      <Download className="w-4 h-4 mr-2" />
-                      Download
-                    </Button>
-                  </div>
                 </motion.div>
               ))}
             </div>
@@ -615,9 +614,9 @@ function Home() {
             <div>
               <h4 className="font-black mb-4 uppercase tracking-wider text-sm">Services</h4>
               <ul className="space-y-2 text-sm text-white/80">
-                <li>Spare Parts Distribution</li>
-                <li>Rapid Shipping</li>
-                <li>Technical Consulting</li>
+                <li>On Demand Parts Availability</li>
+                <li>Emergency Logistics Support</li>
+                <li>Operational Optimization</li>
                 <li>Parts Catalogue</li>
               </ul>
             </div>
@@ -628,13 +627,11 @@ function Home() {
                 <li>contact@partiva.ma</li>
                 <li>+212 5XX-XXX-XXX</li>
               </ul>
-              <div className="flex gap-3 mt-6">
-                {[{ icon: FaLinkedin, label: 'LinkedIn' }, { icon: FaInstagram, label: 'Instagram' }, { icon: MessageCircle, label: 'WhatsApp' }].map(({ icon: Icon, label }) => (
-                  <a key={label} href="#" className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-[#F97316] transition-colors" aria-label={label}>
-                    <Icon className="w-5 h-5" />
-                  </a>
-                ))}
-              </div>
+ <div className="flex gap-3 mt-6">
+  <a href="https://wa.me/212608455439" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-[#25D366] transition-colors" aria-label="WhatsApp">
+    <MessageCircle className="w-5 h-5" />
+  </a>
+</div>
             </div>
           </div>
           <div className="border-t border-white/20 pt-8">
@@ -644,7 +641,15 @@ function Home() {
           </div>
         </div>
       </footer>
- 
+ <a href="https://wa.me/212608455439"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="fixed bottom-8 left-8 z-50 flex items-center gap-3 bg-[#25D366] text-white px-5 py-3 rounded-full shadow-2xl hover:scale-105 hover:shadow-[0_0_20px_rgba(37,211,102,0.5)] transition-all duration-300"
+  aria-label="Contact us on WhatsApp"
+>
+  <MessageCircle className="w-6 h-6" />
+  <span className="font-bold text-sm hidden sm:block">Chat with us</span>
+</a>
       <style>{`
         @keyframes loom-scroll {
           0% { transform: translateX(0); }
